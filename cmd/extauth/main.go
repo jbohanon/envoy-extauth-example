@@ -47,7 +47,7 @@ func main() {
 		listener, err = net.Listen("tcp", fmt.Sprintf(":%d", port))
 	} else if sock != "" {
 		listener, err = net.Listen("unix", sock)
-		sigChan := make(chan os.Signal)
+		sigChan := make(chan os.Signal, 1)
 		signal.Notify(sigChan, os.Interrupt)
 		go func() {
 			select {
@@ -67,7 +67,7 @@ func main() {
 	}
 
 	server := grpc.NewServer()
-	service := processorService{}
+	service := authorizationService{}
 	extauth.RegisterAuthorizationServer(server, &service)
 
 	logger.Infof("Listening on %s", listener.Addr())
