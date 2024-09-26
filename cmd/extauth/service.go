@@ -10,11 +10,11 @@ import (
 
 var contentTypeJSON = regexp.MustCompile("^(application|text)/json(;.*)?$")
 
-var _ extauth.AuthorizationServer = &processorService{}
+var _ extauth.AuthorizationServer = &authorizationService{}
 
-type processorService struct{}
+type authorizationService struct{}
 
-func (s *processorService) Check(_ context.Context, _ *extauth.CheckRequest) (*extauth.CheckResponse, error) {
+func (s *authorizationService) Check(_ context.Context, _ *extauth.CheckRequest) (*extauth.CheckResponse, error) {
 	// Do nothing but return ok
 	return &extauth.CheckResponse{
 		Status: &status.Status{},
